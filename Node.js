@@ -1,4 +1,4 @@
-import {mode} from "./Grid.js";
+import {mode} from "./Toolbar.js";
 export default class Node{
     constructor(){
         this.visited = false;
@@ -13,6 +13,9 @@ export default class Node{
         this.node = document.createElement("div");
         this.node.className = "emptyNode";
         this.node.onmouseenter = () => this.onEnterHandler();
+        this.node.onmousedown = () => this.onMouseDownHandler();
+        this.node.onmouseup = () => this.onMouseUpHandler();
+        //TODO: implement these 2 next time.
         parent.appendChild(this.node);
     }
 
@@ -29,6 +32,7 @@ export default class Node{
         //else this.node.className = "emptyNode"; 
 
     }
+    
 
     setAsStartNode(){
         this.isStartNode = true;

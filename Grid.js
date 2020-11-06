@@ -1,4 +1,6 @@
 import Node from "./Node.js";
+import {mode} from "./Toolbar.js";
+
 class Grid {
     constructor(dimX, dimY) {
         this.dimX = dimX;
@@ -34,5 +36,4 @@ class Grid {
         this.grid[x][y].setAsEndNode();
     }
 }
-var mode = "DRAW_WALLS";
-export {Grid, mode};
+export {Grid};
