@@ -1,4 +1,4 @@
-import {mode} from "./Toolbar.js";
+import {mode, mouseDown, mouseUp, currentlyDrawing} from "./Toolbar.js";
 export default class Node{
     constructor(){
         this.visited = false;
@@ -20,19 +20,17 @@ export default class Node{
     }
 
     onEnterHandler = () => {
-        if(mode != "DRAW_WALLS")
-        return;
-
-        if(this.node.isWall){
-            this.node.isWall = !this.node.isWall;
-        }
-        if(this.node.className == "emptyNode")
-            this.node.className = "wallNode";
-        //TODO: fix this, can be other classes
-        //else this.node.className = "emptyNode"; 
-
+        this.drawWallNode();
     }
-    
+
+    onMouseDownHandler = () => {
+        mouseDown();
+        this.drawWallNode();
+    }
+
+    onMouseUpHandler = () => {
+        mouseUp();
+    }
 
     setAsStartNode(){
         this.isStartNode = true;
@@ -42,4 +40,23 @@ export default class Node{
         this.isEndNode = true;
         this.node.className = "endNode";
     }
-}
+
+    drawWallNode = () => {
+        if((mode != "DRAW_WALLS" && mode !="DELETE_WALLS") 
+        || currentlyDrawing === false )
+        return;
+
+        if (mode === "DRAW_WALLS"){
+            if(!this.node.isWall)
+                this.node.isWall = true;
+            if(this.node.className == "emptyNode")
+                this.node.className = "wallNode";
+        }
+        else if (mode === "DELETE_WALLS"){
+            if(this.node.isWall)
+                this.node.isWall = false;
+            if(this.node.className == "wallNode")
+                this.node.className = "emptyNode";
+            }
+        }
+    }

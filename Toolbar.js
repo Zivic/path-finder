@@ -15,18 +15,30 @@ class Toolbar {
         btnToggleDrawMode.innerText = "Toggle!";
         btnToggleDrawMode.onclick = () => this.toggleDrawMode();
         navbar.appendChild(btnToggleDrawMode);
+
+        
     }
 
     toggleDrawMode = () => {
         console.log(mode);
 
         if(mode === "DRAW_WALLS")
-        mode = "DEFAULT";
+        mode = "DELETE_WALLS";
 
-        else if (mode === "DEFAULT")
+        else if (mode === "DELETE_WALLS")
         mode = "DRAW_WALLS";
     }
+
+    
     
 }
+var mouseDown = () => {
+    currentlyDrawing = true;
+}
+
+var mouseUp = () => {
+    currentlyDrawing = false;
+}
 var mode = "DRAW_WALLS";
-export {Toolbar, mode};
+var currentlyDrawing = false;
+export {Toolbar, mode, currentlyDrawing, mouseDown, mouseUp};
