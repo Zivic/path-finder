@@ -11,20 +11,23 @@
         })
         //TODO: rootNode i goalNode su koordinate pa se nadje u lokanoj kopiji ?
         rootNode.distance = 0;
-        console.log(Q);
-        console.log(getMin(Q));
-        /*
+        
         while (this.Q.size != 0){
 
             
             let distArray = [];
-            console.log(getMin()); //trebalo bi da vrati objekat
-            //this.Q.forEach(vertexNode => distArray.push(vertexNode.distance))
-            /*
+            //console.log(getMin()); //trebalo bi da vrati objekat
+            this.Q.forEach(vertexNode => distArray.push(vertexNode.value.distance))
+            
             //let u = vertex in Q with min dist[u]
-            //Q.remove(u)
+            let u = getMin(Q);
+
+            Q.remove(u)
+            
             //if(u.hasGoal()) break;
-            //forEach neighbor v in u{
+            if(u.isEndNode === true) break;
+
+            forEach neighbor v in u{
             alt = dist[u]+ length(u,v) //length je 1 za direkntog neoghboura i sabira se za ostale
             if (alt < dist[v]){
                 dist[v] = alt;
@@ -32,8 +35,8 @@
             }
         }
     }return dist[], prev[];
-            //}
-        } */
+            }
+        } 
     }
     function getMin(set) {
         var iterator = set.values();
@@ -45,8 +48,9 @@
 
         set.forEach(node => {
             current = iterator.next();
-            if(min.value.distance > current.value.distance)
-            min = node;
+            let a = min.value.distance;
+            if(a > current.value.distance)
+            min = current;
         })
         console.log(min.value);
         return min;

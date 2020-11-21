@@ -6,6 +6,7 @@ export default class Node{
         this.isEndNode = false;
         this.isWall = false;
         this.node = null;
+        this.neighbors = [];
     }
     draw(parent){
         if(!parent) throw new Error("Parent container not defined!");
