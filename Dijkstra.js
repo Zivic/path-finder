@@ -1,20 +1,24 @@
-class Dijkstra{ //TODO: nije klasa
-    constructor(graph,rootNode,goalNode){
-        this.graph = graph;
-        this.Q = new Set();
+    function Dijkstra(graph,rootNode,goalNode){
+        let localGraph = graph;
+        let Q = new Set();
 
-        this.graph.forEach(node => {
+        localGraph.forEach(row => {
+            row.forEach(node => {
             node.distance = 9999;
             node.previousNode = null;
-            this.Q.add(node);
+            Q.add(node);
+            })
         })
         //TODO: rootNode i goalNode su koordinate pa se nadje u lokanoj kopiji ?
         rootNode.distance = 0;
+        console.log(Q);
+        console.log(getMin(Q));
+        /*
         while (this.Q.size != 0){
 
             
             let distArray = [];
-            console.log(this.getMin()); //trebalo bi da vrati objekat
+            console.log(getMin()); //trebalo bi da vrati objekat
             //this.Q.forEach(vertexNode => distArray.push(vertexNode.distance))
             /*
             //let u = vertex in Q with min dist[u]
@@ -28,10 +32,24 @@ class Dijkstra{ //TODO: nije klasa
             }
         }
     }return dist[], prev[];
-            //}*/
-        }
+            //}
+        } */
     }
-    getMin() {
-        return this.Q.reduce((min, p) => p.distance < min ? p.distance : min, this.Q[0].distance);
+    function getMin(set) {
+        var iterator = set.values();
+        let min = iterator.next();
+        let current = min;
+        console.log(current.value);
+        iterator = null;
+        iterator = set.values(); //test
+
+        set.forEach(node => {
+            current = iterator.next();
+            if(min.value.distance > current.value.distance)
+            min = node;
+        })
+        console.log(min.value);
+        return min;
       }
-}
+
+export default Dijkstra;
