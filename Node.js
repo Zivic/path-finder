@@ -6,7 +6,7 @@ export default class Node{
         this.isEndNode = false;
         this.isWall = false;
         this.node = null;
-        this.neighbors = [];
+        this.neighbours = [];
     }
     draw(parent){
         if(!parent) throw new Error("Parent container not defined!");
@@ -59,5 +59,16 @@ export default class Node{
             if(this.node.className == "wallNode")
                 this.node.className = "emptyNode";
             }
+        }
+
+        visitNode = () => {
+            this.visited = true;
+            this.node.className = "visited";
+        }
+    
+        addNeighbours = (neighbours) => {
+            this.neighbours = [...neighbours];
+            console.log(this.neighbours)
+            this.neighbours.forEach(nb => nb.visitNode());
         }
     }

@@ -33,3 +33,7 @@ nav{
 .btnToggleDrawMode{
     width: 100px;
 }
+
+.visited{
+    background-color: cornflowerblue;
+}

@@ -10,6 +10,7 @@
             })
         })
         //TODO: rootNode i goalNode su koordinate pa se nadje u lokanoj kopiji ?
+        /*
         rootNode.distance = 0;
         
         while (this.Q.size != 0){
@@ -23,7 +24,7 @@
             let u = getMin(Q);
 
             Q.remove(u)
-            
+
             //if(u.hasGoal()) break;
             if(u.isEndNode === true) break;
 
@@ -36,7 +37,7 @@
         }
     }return dist[], prev[];
             }
-        } 
+        } */
     }
     function getMin(set) {
         var iterator = set.values();

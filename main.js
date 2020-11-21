@@ -9,3 +9,4 @@ newGrid.draw(document.body);
 newGrid.setStartNode(15,5);
 newGrid.setEndNode(20,27);
 newGrid.runDijkstra();
+newGrid.generateNeighbours(15,5);

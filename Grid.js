@@ -45,5 +45,19 @@ class Grid {
         Dijkstra(this.grid, this.startNode, this.endNode);
         console.log("Running Dijkstra...");
     }
+
+    generateNeighbours(x,y){
+        let neighbours = [];
+        if(x != 0)
+        neighbours.push(this.grid[x-1][y]);
+        if(x != this.dimX)
+        neighbours.push(this.grid[x+1][y]);
+        if(y != 0)
+        neighbours.push(this.grid[x][y-1]);
+        if(y != this.dimY)
+        neighbours.push(this.grid[x][y+1]);
+
+        this.grid[x][y].addNeighbours(neighbours);
+    }
 }
 export {Grid};
