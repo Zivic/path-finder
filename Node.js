@@ -63,14 +63,23 @@ export default class Node{
             }
         }
 
-        visitNode = () => {
-            this.visited = true;
-            this.node.className = "visited";
+        visitNode = async () => {
+            await new Promise(r => setTimeout(r, 1000))
+            .then(() => {
+                console.log("Visited!");
+                this.visited = true;
+                this.node.className = "visited";
+            })
+
         }
     
-        addNeighbours = (neighbours) => {
+        addNeighbours =  (neighbours) => {
             this.neighbours = [...neighbours];
             console.log(this.neighbours)
-            this.neighbours.forEach(nb => nb.visitNode());
+            this.neighbours.forEach( nb => {
+                
+                console.log("ZZZZZZZ");
+                nb.visitNode();
+            });
         }
     }

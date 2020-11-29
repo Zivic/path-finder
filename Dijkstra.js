@@ -1,5 +1,5 @@
 
-    function Dijkstra(graph,rootNode,goalNode){
+   async function Dijkstra(graph,rootNode,goalNode){
 
         let localGraph = graph.grid;
         let Q = new Set();
@@ -18,9 +18,10 @@
         //current
         let x=15;
         let y=5;
-        
-        while (Q.size != 0){
-
+        let iterations = 0;
+        while (Q.size != 0 && iterations <10){
+            await new Promise(r => setTimeout(r, 2000));
+            iterations++;
             
             let distanceDictionary = new Object();
             let previousDictionary = new Object();
@@ -32,8 +33,7 @@
             
             //let u = vertex in Q with min dist[u]
             let currentMinimalNode = getMin(Q);
-
-            Q.delete(currentMinimalNode);
+            Q.delete(currentMinimalNode.value);
 
             //if(u.hasGoal()) break;
             if(currentMinimalNode.isEndNode === true) break;
@@ -44,15 +44,22 @@
             graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
             currentMinimalNode.value.neighbours.forEach((neighborNode) => {
            // alt = dist[u]+ length(u,v) //length je 1 za direkntog neoghboura i sabira se za ostale
+           console.log('pppp');
+           console.log(neighborNode);
+           neighborNode.distance = currentMinimalNode.value.distance+1;
+           console.log(neighborNode.distance);
+           console.log(neighborNode.distance);
            let alt = currentMinimalNode.distance + lengthBetweenNodes(currentMinimalNode,neighborNode);
             if (alt < neighborNode.distance){
                 distanceDictionary[v] = alt;
                 previousDictionary[v] = currentMinimalNode;
             }
+
         })
+        
+        }
         console.log("Dijkstra complete!");
         return distanceDictionary, previousDictionary;
-        }
     }
 
     function getMin(set) {

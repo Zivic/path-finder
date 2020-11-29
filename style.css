@@ -16,6 +16,9 @@ body{
 .wallNode{
     background-color: #654ea3;
 }
+.visited{
+    background-color: cornflowerblue;
+}
 .startNode{
     background-color: orange;
 }
@@ -34,6 +37,3 @@ nav{
     width: 100px;
 }
 
-.visited{
-    background-color: cornflowerblue;
-}
