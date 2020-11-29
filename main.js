@@ -8,5 +8,5 @@ let newGrid = new Grid(30,45);
 newGrid.draw(document.body);
 newGrid.setStartNode(15,5);
 newGrid.setEndNode(20,27);
+//newGrid.generateNeighbours(15,5);
 newGrid.runDijkstra();
-newGrid.generateNeighbours(15,5);

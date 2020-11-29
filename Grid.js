@@ -12,7 +12,7 @@ class Grid {
         for (let i = 0; i < dimX; i++) {
             this.grid.push([]);
             for (let j = 0; j < dimY; j++)
-                this.grid[i].push(new Node());
+                this.grid[i].push(new Node(i,j));
         }
         console.log(this.grid);
     }
@@ -42,11 +42,12 @@ class Grid {
     }
 
     runDijkstra(){
-        Dijkstra(this.grid, this.startNode, this.endNode);
+        Dijkstra(this, this.startNode, this.endNode);
         console.log("Running Dijkstra...");
     }
 
     generateNeighbours(x,y){
+        console.log(`Generating neighbours for ${x} ${y}`);
         let neighbours = [];
         if(x != 0)
         neighbours.push(this.grid[x-1][y]);

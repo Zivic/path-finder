@@ -1,5 +1,7 @@
+
     function Dijkstra(graph,rootNode,goalNode){
-        let localGraph = graph;
+
+        let localGraph = graph.grid;
         let Q = new Set();
 
         localGraph.forEach(row => {
@@ -10,35 +12,49 @@
             })
         })
         //TODO: rootNode i goalNode su koordinate pa se nadje u lokanoj kopiji ?
-        /*
-        rootNode.distance = 0;
         
-        while (this.Q.size != 0){
+        rootNode.distance = 0;
+
+        //current
+        let x=15;
+        let y=5;
+        
+        while (Q.size != 0){
 
             
-            let distArray = [];
+            let distanceDictionary = new Object();
+            let previousDictionary = new Object();
             //console.log(getMin()); //trebalo bi da vrati objekat
-            this.Q.forEach(vertexNode => distArray.push(vertexNode.value.distance))
+            Q.forEach(vertexNode => {
+                distanceDictionary[vertexNode] = vertexNode.distance;
+                previousDictionary[vertexNode] = null;
+            });
             
             //let u = vertex in Q with min dist[u]
-            let u = getMin(Q);
+            let currentMinimalNode = getMin(Q);
 
-            Q.remove(u)
+            Q.delete(currentMinimalNode);
 
             //if(u.hasGoal()) break;
-            if(u.isEndNode === true) break;
+            if(currentMinimalNode.isEndNode === true) break;
+            //TODO: pozovi generateneighbors za  currentMinimalnode
 
-            forEach neighbor v in u{
-            alt = dist[u]+ length(u,v) //length je 1 za direkntog neoghboura i sabira se za ostale
-            if (alt < dist[v]){
-                dist[v] = alt;
-                prev[v] = u;
+            //forEach neighbor v in u{
+                //TODO: Generisi neighbors ovde !
+            graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
+            currentMinimalNode.value.neighbours.forEach((neighborNode) => {
+           // alt = dist[u]+ length(u,v) //length je 1 za direkntog neoghboura i sabira se za ostale
+           let alt = currentMinimalNode.distance + lengthBetweenNodes(currentMinimalNode,neighborNode);
+            if (alt < neighborNode.distance){
+                distanceDictionary[v] = alt;
+                previousDictionary[v] = currentMinimalNode;
             }
+        })
+        console.log("Dijkstra complete!");
+        return distanceDictionary, previousDictionary;
         }
-    }return dist[], prev[];
-            }
-        } */
     }
+
     function getMin(set) {
         var iterator = set.values();
         let min = iterator.next();
@@ -53,8 +69,13 @@
             if(a > current.value.distance)
             min = current;
         })
-        console.log(min.value);
+        console.log(`Found minimal node : ${min.value.x} , ${min.value.y}`);
+        console.log(min);
         return min;
+      }
+      
+      function lengthBetweenNodes(startNode, endNode) {
+        return endNode.distance - startNode.distance;
       }
 
 export default Dijkstra;
