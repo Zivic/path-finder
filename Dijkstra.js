@@ -19,10 +19,15 @@
         let x=15;
         let y=5;
         let iterations = 0;
+
+        var promise2 = null;
         while (Q.size != 0 && iterations <10){
-            await new Promise(r => setTimeout(r, 2000));
+            //TODO: This  is hacky, fix it with a proper promise after "promise" finishes
+            await new Promise(r => setTimeout(r, 4000));
+            //await promise2;
             iterations++;
             
+            //TODO:pomeri ovo gore ?? ova 2 reda
             let distanceDictionary = new Object();
             let previousDictionary = new Object();
             //console.log(getMin()); //trebalo bi da vrati objekat
@@ -42,11 +47,18 @@
             //forEach neighbor v in u{
                 //TODO: Generisi neighbors ovde !
             graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
+
+            let interval = 1000;
+            var promise = Promise.resolve();
+
             currentMinimalNode.value.neighbours.forEach((neighborNode) => {
-           // alt = dist[u]+ length(u,v) //length je 1 za direkntog neoghboura i sabira se za ostale
-           console.log('pppp');
+                promise = promise.then(() => {
+//SVE               console.log('pppp');
            console.log(neighborNode);
            neighborNode.distance = currentMinimalNode.value.distance+1;
+           neighborNode.visitNode();
+           
+
            console.log(neighborNode.distance);
            console.log(neighborNode.distance);
            let alt = currentMinimalNode.distance + lengthBetweenNodes(currentMinimalNode,neighborNode);
@@ -54,6 +66,12 @@
                 distanceDictionary[v] = alt;
                 previousDictionary[v] = currentMinimalNode;
             }
+                    return new Promise(resolve => setTimeout(resolve, interval));
+                })
+           // alt = dist[u]+ length(u,v) //length je 1 za direkntog neoghboura i sabira se za ostale
+           
+           //promise.then(() => promise2.resolve());
+
 
         })
         
@@ -61,6 +79,7 @@
         console.log("Dijkstra complete!");
         return distanceDictionary, previousDictionary;
     }
+
 
     function getMin(set) {
         var iterator = set.values();

@@ -63,23 +63,25 @@ export default class Node{
             }
         }
 
-        visitNode = async () => {
-            await new Promise(r => setTimeout(r, 1000))
-            .then(() => {
+        visitNode =  () => {
+            
+            // await new Promise(r => setTimeout(r, 1000))
+            // .then(() => {
                 console.log("Visited!");
                 this.visited = true;
                 this.node.className = "visited";
-            })
+            // })
 
         }
     
         addNeighbours =  (neighbours) => {
             this.neighbours = [...neighbours];
             console.log(this.neighbours)
-            this.neighbours.forEach( nb => {
+            
+            // this.neighbours.forEach( nb => {
                 
-                console.log("ZZZZZZZ");
-                nb.visitNode();
-            });
+            //     console.log("ZZZZZZZ");
+            //     nb.visitNode();
+            // });
         }
     }
