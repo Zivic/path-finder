@@ -1,4 +1,4 @@
-import {newGrid} from "./main.js";
+import {newGrid as gridObject} from "./main.js";
 class Toolbar {
     constructor(){
         console.log('Test constructor...');
@@ -20,10 +20,14 @@ class Toolbar {
         let btnStartDijkstra = document.createElement("button");
         btnStartDijkstra.innerText = "Start Dijkstra!";
         btnStartDijkstra.onclick = () => {
-            newGrid.runDijkstra();
+            gridObject.runDijkstra();
         }
         navbar.appendChild(btnStartDijkstra);
 
+        let btnClear = document.createElement("button");
+        btnClear.innerText = "Clear grid";
+        btnClear.onclick = () => gridObject.clearGrid();
+        navbar.appendChild(btnClear);
         
     }
 

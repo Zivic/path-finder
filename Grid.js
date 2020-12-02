@@ -6,12 +6,17 @@ class Grid {
     constructor(dimX, dimY) {
         this.dimX = dimX;
         this.dimY = dimY;
+        this.parentContainer = null;
+        this.construct();
+    }
+
+    construct() {
         this.grid = [];
         this.startNode = null;
         this.endNode = null;
-        for (let i = 0; i < dimX; i++) {
+        for (let i = 0; i < this.dimX; i++) {
             this.grid.push([]);
-            for (let j = 0; j < dimY; j++)
+            for (let j = 0; j < this.dimY; j++)
                 this.grid[i].push(new Node(i,j));
         }
         console.log(this.grid);
@@ -19,6 +24,7 @@ class Grid {
 
     draw(parent){
         if(!parent) throw new Error("Parent container not defined!");
+        this.parentContainer = parent;
 
         let grid = document.createElement("div");
         grid.className = "grid";
@@ -47,6 +53,10 @@ class Grid {
     }
 
     generateNeighbours(x,y){
+        console.log(this.grid[x][y].isWall);
+        if(this.grid[x][y].isWall)
+        return;
+
         console.log(`Generating neighbours for ${x} ${y}`);
         let neighbours = [];
         if(x != 0)
@@ -59,6 +69,12 @@ class Grid {
         neighbours.push(this.grid[x][y+1]);
 
         this.grid[x][y].addNeighbours(neighbours);
+    }
+
+    clearGrid(){
+        this.construct();
+        document.querySelector(".grid").remove();
+        this.draw(this.parentContainer);
     }
 }
 export {Grid};

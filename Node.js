@@ -50,14 +50,14 @@ export default class Node{
         return;
 
         if (mode === "DRAW_WALLS"){
-            if(!this.node.isWall)
-                this.node.isWall = true;
+            if(!this.isWall)
+                this.isWall = true;
             if(this.node.className == "emptyNode")
                 this.node.className = "wallNode";
         }
         else if (mode === "DELETE_WALLS"){
-            if(this.node.isWall)
-                this.node.isWall = false;
+            if(this.isWall)
+                this.isWall = false;
             if(this.node.className == "wallNode")
                 this.node.className = "emptyNode";
             }
