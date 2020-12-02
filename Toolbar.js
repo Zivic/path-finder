@@ -1,3 +1,4 @@
+import {newGrid} from "./main.js";
 class Toolbar {
     constructor(){
         console.log('Test constructor...');
@@ -10,11 +11,18 @@ class Toolbar {
         navbar.className = "";
         parent.appendChild(navbar);
 
-        let btnToggleDrawMode = document.createElement("button")
+        let btnToggleDrawMode = document.createElement("button");
         btnToggleDrawMode.className = "btnToggleDrawMode";
         btnToggleDrawMode.innerText = "Toggle!";
         btnToggleDrawMode.onclick = () => this.toggleDrawMode();
         navbar.appendChild(btnToggleDrawMode);
+
+        let btnStartDijkstra = document.createElement("button");
+        btnStartDijkstra.innerText = "Start Dijkstra!";
+        btnStartDijkstra.onclick = () => {
+            newGrid.runDijkstra();
+        }
+        navbar.appendChild(btnStartDijkstra);
 
         
     }
