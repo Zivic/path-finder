@@ -22,7 +22,7 @@
 
         
     
-        while (Q.size != 0 && iterations <10){
+        while (Q.size != 0 && iterations <20){
             //TODO: This  is hacky, fix it with a proper promise after "promise" finishes
            // await new Promise(r => setTimeout(r, 4000));
             var promise2 = new Promise((resolve,reject) => {
@@ -53,7 +53,7 @@
                 //TODO: Generisi neighbors ovde !
             graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
 
-            let interval = 1000;
+            let interval =200;
             var promise = Promise.resolve();
             let itemsProcessed = 0;
             let numberOfNonVisitedNodes = 0;

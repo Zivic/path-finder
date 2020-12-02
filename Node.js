@@ -64,13 +64,11 @@ export default class Node{
         }
 
         visitNode =  () => {
-            
-            // await new Promise(r => setTimeout(r, 1000))
-            // .then(() => {
+                
                 console.log("Visited!");
                 this.visited = true;
-                this.node.className = "visited";
-            // })
+                if(this.node.className === "emptyNode")
+                this.node.className = "visited flip-in-ver-right";
 
         }
     
