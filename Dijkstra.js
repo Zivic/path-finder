@@ -19,14 +19,15 @@ async function Dijkstra(graph, rootNode, goalNode) {
     let previousDictionary = new Object();
 
 
-    while (Q.size != 0 && iterations < 20) {
+    while (Q.size != 0 && iterations < 30) {
 
         var promise2 = new Promise((resolve, reject) => {
             iterations++;
 
             Q.forEach(vertexNode => {
-                distanceDictionary[vertexNode] = vertexNode.distance;
-                previousDictionary[vertexNode] = null;
+                distanceDictionary[`${vertexNode.x},${vertexNode.y}`] = vertexNode.distance;
+                previousDictionary[`${vertexNode.x},${vertexNode.y}`] = null;
+                //console.log(distanceDictionary);
             });
 
             let currentMinimalNode = getMin(Q);
@@ -38,7 +39,7 @@ async function Dijkstra(graph, rootNode, goalNode) {
 
             graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
 
-            let interval = 200;
+            let interval = 50;
             var promise = Promise.resolve();
             let itemsProcessed = 0;
             let nonVisitedNodes = [];
@@ -55,10 +56,14 @@ async function Dijkstra(graph, rootNode, goalNode) {
                         if (!neighborNode.isWall)
                             neighborNode.distance = currentMinimalNode.value.distance + 1;
                         neighborNode.visitNode();
-                        let alt = currentMinimalNode.distance + lengthBetweenNodes(currentMinimalNode, neighborNode);
+                        let alt = currentMinimalNode.value.distance 
+                        + lengthBetweenNodes(currentMinimalNode.value, neighborNode);
+                        console.log("Alt: " + alt + "dist: " + neighborNode.distance);
+
                         if (alt < neighborNode.distance) {
-                            distanceDictionary[v] = alt;
-                            previousDictionary[v] = currentMinimalNode;
+                            console.log("CHanged");
+                            distanceDictionary[`${neighborNode.x},${neighborNode.y}`] = alt;
+                            previousDictionary[`${neighborNode.x},${neighborNode.y}`] = currentMinimalNode;
                         }
                         return new Promise(resolve => setTimeout(resolve, interval));
                     })
@@ -73,6 +78,8 @@ async function Dijkstra(graph, rootNode, goalNode) {
         await promise2;
     }
     console.log("Dijkstra complete!");
+    console.log(distanceDictionary);
+    console.log(previousDictionary);
     return distanceDictionary, previousDictionary;
 }
 

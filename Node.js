@@ -69,6 +69,7 @@ export default class Node{
                 this.visited = true;
                 if(this.node.className === "emptyNode")
                 this.node.className = "visited flip-in-ver-right";
+                //this.node.innerText = this.distance;
 
         }
     
