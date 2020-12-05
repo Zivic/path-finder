@@ -61,11 +61,11 @@ class Grid {
         let neighbours = [];
         if(x != 0)
         neighbours.push(this.grid[x-1][y]);
-        if(x != this.dimX)
+        if(x != this.dimX-1)
         neighbours.push(this.grid[x+1][y]);
         if(y != 0)
         neighbours.push(this.grid[x][y-1]);
-        if(y != this.dimY)
+        if(y != this.dimY-1)
         neighbours.push(this.grid[x][y+1]);
 
         this.grid[x][y].addNeighbours(neighbours);

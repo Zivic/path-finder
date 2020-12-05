@@ -19,7 +19,7 @@ async function Dijkstra(graph, rootNode, goalNode) {
     let previousDictionary = new Object();
 
 
-    while (Q.size != 0 && iterations < 30) {
+    while (Q.size != 0 && iterations < 1200) {
 
         var promise2 = new Promise((resolve, reject) => {
             iterations++;
@@ -39,7 +39,7 @@ async function Dijkstra(graph, rootNode, goalNode) {
 
             graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
 
-            let interval = 50;
+            let interval = 1;
             var promise = Promise.resolve();
             let itemsProcessed = 0;
             let nonVisitedNodes = [];
@@ -49,6 +49,9 @@ async function Dijkstra(graph, rootNode, goalNode) {
                     nonVisitedNodes.push(neighborNode);
                 }
             })
+
+            if(nonVisitedNodes.length === 0)
+            resolve();
 
             nonVisitedNodes.forEach((neighborNode, index, array) => {
                 promise = promise.then(() => {
