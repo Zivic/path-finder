@@ -17,9 +17,11 @@ async function Dijkstra(graph, rootNode, goalNode) {
     let iterations = 0;
     let distanceDictionary = new Object();
     let previousDictionary = new Object();
+    let breakFlag = false;
 
 
     while (Q.size != 0 && iterations < 1200) {
+        
 
         var promise2 = new Promise((resolve, reject) => {
             iterations++;
@@ -35,7 +37,10 @@ async function Dijkstra(graph, rootNode, goalNode) {
 
             //if(u.hasGoal()) break;
             //TODO: Vrati ovo
-            //if(currentMinimalNode.isEndNode === true) break;
+            if(currentMinimalNode.value.isEndNode === true) {
+                iterations = 9999;
+                console.error("Pronadjen kraj");
+            }
 
             graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
 
@@ -78,7 +83,9 @@ async function Dijkstra(graph, rootNode, goalNode) {
                     })
             })
         })
+
         await promise2;
+        
     }
     console.log("Dijkstra complete!");
     console.log(distanceDictionary);
