@@ -12,31 +12,19 @@ async function Dijkstra(graph, rootNode, endNode) {
     })
     rootNode.distance = 0;
 
-    let x = 15;
-    let y = 5;
     let iterations = 0;
     let distanceDictionary = new Object();
     let previousDictionary = new Object();
-    let breakFlag = false;
 
 
     while (Q.size != 0 && iterations < 1200) {
         
-
         var promise2 = new Promise((resolve, reject) => {
             iterations++;
-
-            Q.forEach(vertexNode => {
-                distanceDictionary[`${vertexNode.x},${vertexNode.y}`] = vertexNode.distance;
-                previousDictionary[`${vertexNode.x},${vertexNode.y}`] = null;
-                //console.log(distanceDictionary);
-            });
 
             let currentMinimalNode = getMin(Q);
             Q.delete(currentMinimalNode.value);
 
-            //if(u.hasGoal()) break;
-            //TODO: Vrati ovo
             if(currentMinimalNode.value.isEndNode === true) {
                 iterations = 9999;
                 console.error("Pronadjen kraj");
@@ -66,15 +54,6 @@ async function Dijkstra(graph, rootNode, endNode) {
                             neighborNode.previous = currentMinimalNode.value;
                         }
                         neighborNode.visitNode();
-                        let alt = currentMinimalNode.value.distance 
-                        + lengthBetweenNodes(currentMinimalNode.value, neighborNode);
-                        console.log("Alt: " + alt + "dist: " + neighborNode.distance);
-
-                        if (alt < neighborNode.distance) {
-                            console.error("CHanged");
-                            distanceDictionary[`${neighborNode.x},${neighborNode.y}`] = alt;
-                            previousDictionary[`${neighborNode.x},${neighborNode.y}`] = currentMinimalNode.value;
-                        }
                         return new Promise(resolve => setTimeout(resolve, interval));
                     })
                     .then(() => {
@@ -89,21 +68,15 @@ async function Dijkstra(graph, rootNode, endNode) {
         await promise2;
         
     }
-    // previousDictionary.forEach((obj) =>{
-    //     if(obj.value != null)
-    //     console.log("Found");
-    // })
-    
     console.log("Dijkstra complete!");
-    console.log(distanceDictionary);
-    console.log(previousDictionary);
-
     recursiveChangeOfColor(endNode);
 
     return distanceDictionary, previousDictionary;
 }
 
 async function recursiveChangeOfColor(startingNode) {
+    if(startingNode.previous.isStartNode)
+    return;
     let promise = new Promise(resolve => setTimeout(resolve, 10));
     await promise
     .then(()=> {
@@ -117,9 +90,8 @@ function getMin(set) {
     var iterator = set.values();
     let min = iterator.next();
     let current = min;
-    //console.log(current.value);
     iterator = null;
-    iterator = set.values(); //test
+    iterator = set.values();
 
     set.forEach(node => {
         current = iterator.next();
@@ -127,13 +99,7 @@ function getMin(set) {
         if (a > current.value.distance)
             min = current;
     })
-    //console.log(`Found minimal node : ${min.value.x} , ${min.value.y}`);
-    //console.log(min);
     return min;
-}
-
-function lengthBetweenNodes(startNode, endNode) {
-    return endNode.distance - startNode.distance;
 }
 
 export default Dijkstra;
