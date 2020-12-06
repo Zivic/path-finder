@@ -32,6 +32,10 @@ body{
     background-color: firebrick;
 }
 
+.traversed{
+  background-color: tomato;
+}
+
 nav{
     display: flex;
     width: 100%;

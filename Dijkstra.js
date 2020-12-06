@@ -1,4 +1,4 @@
-async function Dijkstra(graph, rootNode, goalNode) {
+async function Dijkstra(graph, rootNode, endNode) {
 
     let localGraph = graph.grid;
     let Q = new Set();
@@ -61,17 +61,19 @@ async function Dijkstra(graph, rootNode, goalNode) {
             nonVisitedNodes.forEach((neighborNode, index, array) => {
                 promise = promise.then(() => {
 
-                        if (!neighborNode.isWall)
+                        if (!neighborNode.isWall){
                             neighborNode.distance = currentMinimalNode.value.distance + 1;
+                            neighborNode.previous = currentMinimalNode.value;
+                        }
                         neighborNode.visitNode();
                         let alt = currentMinimalNode.value.distance 
                         + lengthBetweenNodes(currentMinimalNode.value, neighborNode);
                         console.log("Alt: " + alt + "dist: " + neighborNode.distance);
 
                         if (alt < neighborNode.distance) {
-                            console.log("CHanged");
+                            console.error("CHanged");
                             distanceDictionary[`${neighborNode.x},${neighborNode.y}`] = alt;
-                            previousDictionary[`${neighborNode.x},${neighborNode.y}`] = currentMinimalNode;
+                            previousDictionary[`${neighborNode.x},${neighborNode.y}`] = currentMinimalNode.value;
                         }
                         return new Promise(resolve => setTimeout(resolve, interval));
                     })
@@ -87,11 +89,28 @@ async function Dijkstra(graph, rootNode, goalNode) {
         await promise2;
         
     }
+    // previousDictionary.forEach((obj) =>{
+    //     if(obj.value != null)
+    //     console.log("Found");
+    // })
+    
     console.log("Dijkstra complete!");
     console.log(distanceDictionary);
     console.log(previousDictionary);
+
+    recursiveChangeOfColor(endNode);
+
     return distanceDictionary, previousDictionary;
 }
+
+async function recursiveChangeOfColor(startingNode) {
+    let promise = new Promise(resolve => setTimeout(resolve, 10));
+    await promise
+    .then(()=> {
+        startingNode.previous.node.className = "traversed flip-in-ver-right";
+        recursiveChangeOfColor(startingNode.previous);
+    })
+    }
 
 
 function getMin(set) {
