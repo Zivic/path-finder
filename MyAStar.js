@@ -24,16 +24,16 @@ async function AStar(graph,root,goal){
             let nonVisitedNodes = [];
 
 
-        let currentMinimalNode = getMinFScore(openSet);
-        if (currentMinimalNode.value.isEndNode === true) {
+        let currentMinimalNode = getMinFScore(openSet).value;
+        if (currentMinimalNode.isEndNode === true) {
             iterations = 9999;
             console.error("Pronadjen kraj");
         }
-        openSet.delete(currentMinimalNode.value);
-        closedSet.add(currentMinimalNode.value);
+        openSet.delete(currentMinimalNode);
+        closedSet.add(currentMinimalNode);
 
-        graph.generateNeighbours(currentMinimalNode.value.x, currentMinimalNode.value.y);
-        currentMinimalNode.value.neighbours.forEach((neighborNode) => {
+        graph.generateNeighbours(currentMinimalNode.x, currentMinimalNode.y);
+        currentMinimalNode.neighbours.forEach((neighborNode) => {
             if (neighborNode.visited === false) {
                 nonVisitedNodes.push(neighborNode);
             }
@@ -48,8 +48,8 @@ async function AStar(graph,root,goal){
                             if (!neighborNode.isWall) {
                                 // neighborNode.distance = currentMinimalNode.value.distance + 1;
                                 // neighborNode.previous = currentMinimalNode.value;
-                                console.error(currentMinimalNode.value.g);
-                                tentativeGScore = currentMinimalNode.value.g + 1;
+                                console.error(currentMinimalNode.g);
+                                tentativeGScore = currentMinimalNode.g + 1;
 
                                 if(closedSet.has(neighborNode) && tentativeGScore >= neighborNode.g){
                                     console.error("case 1");
