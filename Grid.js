@@ -1,6 +1,7 @@
 import Node from "./Node.js";
 import {mode} from "./Toolbar.js";
 import Dijkstra from "./Dijkstra.js";
+import AStar from "./MyAStar.js";
 
 class Grid {
     constructor(dimX, dimY) {
@@ -52,8 +53,13 @@ class Grid {
         console.log("Running Dijkstra...");
     }
 
+    runAStar(){
+        AStar(this, this.startNode, this.endNode);
+        console.log("Running A* ...");
+    }
+
     generateNeighbours(x,y){
-        console.log(this.grid[x][y].isWall);
+        //console.log(this.grid[x][y].isWall);
         if(this.grid[x][y].isWall)
         return;
 

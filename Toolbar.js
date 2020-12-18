@@ -24,6 +24,13 @@ class Toolbar {
         }
         navbar.appendChild(btnStartDijkstra);
 
+        let btnStartAStar = document.createElement("button");
+        btnStartAStar.innerText = "Start A*!";
+        btnStartAStar.onclick = () => {
+            gridObject.runAStar();
+        }
+        navbar.appendChild(btnStartAStar);
+
         let btnClear = document.createElement("button");
         btnClear.innerText = "Clear grid";
         btnClear.onclick = () => gridObject.clearGrid();
