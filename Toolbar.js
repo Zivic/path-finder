@@ -17,6 +17,12 @@ class Toolbar {
         btnToggleDrawMode.onclick = () => this.toggleDrawMode();
         navbar.appendChild(btnToggleDrawMode);
 
+        let btnToggleSelectEndpointsMode = document.createElement("button");
+        btnToggleSelectEndpointsMode.className = "btnToggleSelectEndpointsMode";
+        btnToggleSelectEndpointsMode.innerText = "Toggle select endpoints!";
+        btnToggleSelectEndpointsMode.onclick = () => this.toggleSelectEndpointsMode();
+        navbar.appendChild(btnToggleSelectEndpointsMode);
+
         let btnStartDijkstra = document.createElement("button");
         btnStartDijkstra.innerText = "Start Dijkstra!";
         btnStartDijkstra.onclick = () => {
@@ -36,6 +42,16 @@ class Toolbar {
         btnClear.onclick = () => gridObject.clearGrid();
         navbar.appendChild(btnClear);
         
+    }
+
+    toggleDrawMode = () => {
+        console.log(mode);
+
+        if(mode === "DRAW_WALLS")
+        mode = "DELETE_WALLS";
+
+        else if (mode === "DELETE_WALLS")
+        mode = "DRAW_WALLS";
     }
 
     toggleDrawMode = () => {
