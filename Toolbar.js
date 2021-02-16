@@ -54,16 +54,13 @@ class Toolbar {
         mode = "DRAW_WALLS";
     }
 
-    toggleDrawMode = () => {
+    toggleSelectEndpointsMode = () => {
         console.log(mode);
+        if(mode != "SELECT_START_NODE")
+        mode = "SELECT_START_NODE";
 
-        if(mode === "DRAW_WALLS")
-        mode = "DELETE_WALLS";
-
-        else if (mode === "DELETE_WALLS")
-        mode = "DRAW_WALLS";
+        else mode = "DRAW_WALLS";
     }
-
     
     
 }
@@ -74,6 +71,10 @@ var mouseDown = () => {
 var mouseUp = () => {
     currentlyDrawing = false;
 }
+
+var changeMode = (newMode) => {
+    mode = newMode;
+}
 var mode = "DRAW_WALLS";
 var currentlyDrawing = false;
-export {Toolbar, mode, currentlyDrawing, mouseDown, mouseUp};
+export {Toolbar, mode, changeMode, currentlyDrawing, mouseDown, mouseUp};

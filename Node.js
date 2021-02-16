@@ -1,8 +1,10 @@
-import {mode, mouseDown, mouseUp, currentlyDrawing} from "./Toolbar.js";
+import {mode, changeMode, mouseDown, mouseUp, currentlyDrawing} from "./Toolbar.js";
+import {Grid} from "./Grid.js";
 export default class Node{
-    constructor(x,y){
+    constructor(x,y, parentGridObject){
         this.x = x;
         this.y = y;
+        this.grid = parentGridObject;
         this.visited = false;
         this.isStartNode = false;
         this.isEndNode = false;
@@ -18,11 +20,13 @@ export default class Node{
         this.node.onmouseenter = () => this.onEnterHandler();
         this.node.onmousedown = () => this.onMouseDownHandler();
         this.node.onmouseup = () => this.onMouseUpHandler();
+        this.node.onclick = () => this.onMouseClickHandler();
         //TODO: implement these 2 next time.
         parent.appendChild(this.node);
     }
 
     onEnterHandler = () => {
+        if(mode === "DRAW_WALLS" || "DELETE_WALLS")
         this.drawWallNode();
     }
 
@@ -33,6 +37,17 @@ export default class Node{
 
     onMouseUpHandler = () => {
         mouseUp();
+    }
+
+    onMouseClickHandler = () => {
+        if(mode === "SELECT_START_NODE"){
+            this.grid.setStartNode(this.x, this.y);
+            changeMode("SELECT_END_NODE");
+        }
+        else if(mode === "SELECT_END_NODE"){
+            this.grid.setEndNode(this.x, this.y);
+            changeMode("DRAW_WALLS");
+        }
     }
 
     setAsStartNode(){

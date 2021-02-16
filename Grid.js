@@ -18,7 +18,7 @@ class Grid {
         for (let i = 0; i < this.dimX; i++) {
             this.grid.push([]);
             for (let j = 0; j < this.dimY; j++)
-                this.grid[i].push(new Node(i,j));
+                this.grid[i].push(new Node(i,j, this));
         }
         console.log(this.grid);
     }
